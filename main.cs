@@ -2,12 +2,10 @@ using System.Collections.Generic;
 
 public class Repl
 {
-  private Validator _validador;
   private Shell _shell;
 
   public Repl()
   {
-    _validador = new Validator();
     _shell = new Shell();
   }
 
@@ -18,11 +16,24 @@ public class Repl
       if (x == "exit") {
         return;
       }
+      Repl repl = new Repl();
+      Validator v = new Validator();
+      var comandos = repl.Separador(x);
+
+      if(v.IsValid(comandos)){
+      }
+
       System.Console.WriteLine(x);
     }
   }
 
-  private void Separador() {
+  public bool IsValid(Dictionary<string, string[]> comando){
+    return false;
+  }
+
+  private Dictionary<string, string[]> Separador(string cadena) {
+    /*Aqui se hace la lógica de separar el string*/
+    return new Dictionary<string, string[]>();
   }
 
   private void Repartidor() {
