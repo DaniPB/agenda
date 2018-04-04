@@ -21,22 +21,43 @@ public class Repl
       var comandos = repl.Separador(x);
 
       if(v.IsValid(comandos)){
+        repl.Repartidor(comandos);
       }
 
       System.Console.WriteLine(x);
     }
   }
 
-  public bool IsValid(Dictionary<string, string[]> comando){
-    return false;
-  }
 
   private Dictionary<string, string[]> Separador(string cadena) {
     /*Aqui se hace la lógica de separar el string*/
     return new Dictionary<string, string[]>();
   }
 
-  private void Repartidor() {
+// estructura del hash {nombre_comando: [valores]}
+  private void Repartidor(Dictionary<string, string[]> comandos) {
+     comando = comandos.Keys[0];
+     parametros = comandos.Values[0];
+     switch(comando){
+       case "new-contact":
+          _shell.IngresarContacto(parametros[0], parametros[1], parametros[2]);
+          break;
+       case "list-contacts":
+         _shell.ListarContacto();
+         break;
+       case "new-task":
+          _shell.IngresarTarea(parametros[0]);
+          break;
+       case "list-tasks":
+         _shell.ListarTarea();
+         break;
+       case "new-meeting":
+          _shell.IngresarReunion(parametros[0], parametros[0]);
+          break;
+       case "list-meetings":
+         _shell.ListarReunion();
+         break;
+     }
   }
 }
 
@@ -122,7 +143,7 @@ public class DB
 
 public class Validator
 {
-  public bool IsValid(string command, string[] args)
+  public bool IsValid(Dictionary<string, string[]> command)
   {
     return false;
   }
