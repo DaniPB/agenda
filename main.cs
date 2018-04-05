@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.Linq;
 
 public class Repl
 {
@@ -36,8 +37,8 @@ public class Repl
 
 // estructura del hash {nombre_comando: [valores]}
   private void Repartidor(Dictionary<string, string[]> comandos) {
-     comando = comandos.Keys[0];
-     parametros = comandos.Values[0];
+     string comando = comandos.Keys.ToArray()[0];
+     string[] parametros = comandos.Values.ToArray()[0];
      switch(comando){
        case "new-contact":
           _shell.IngresarContacto(parametros[0], parametros[1], parametros[2]);
