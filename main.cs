@@ -146,7 +146,28 @@ public class Validator
 {
   public bool IsValid(Dictionary<string, string[]> command)
   {
-    return false;
+    string comando = command.Keys.ToArray()[0];
+    string[] parametros = command.Values.ToArray()[0];
+    bool respuesta = false;
+     switch(comando){
+       case "new-contact":
+          respuesta = parametros.length == 3;
+          break;
+       case "new-todo":
+         respuesta = parametros.length == 1;
+         break;
+       case "new-meeting":
+         respuesta = parametros.length == 2;
+         break;
+       case "list-meetings":
+       case "list-todo":
+       case "list-contacts":
+         respuesta = parametros.length == 0;
+         break;
+       default:
+         respuesta = false;
+    }
+    return respuesta;
   }
 }
 
