@@ -20,8 +20,9 @@ public class Repl
       Repl repl = new Repl();
       Validator v = new Validator();
       var comandos = repl.Separador(x);
+      (bool isValid, int diferencia) =  v.EntryValidator(comandos)
 
-      if(v.IsValid(comandos)){
+      if(isValid){
         repl.Repartidor(comandos);
       }
 
@@ -144,19 +145,23 @@ public class DB
 
 public class Validator
 {
-  public bool IsValid(Dictionary<string, string[]> command)
+  public (bool, int) EntryValidator(Dictionary<string, string[]> command)
   {
     string comando = command.Keys.ToArray()[0];
     string[] parametros = command.Values.ToArray()[0];
     bool respuesta = false;
+    int diferencia = 0;
      switch(comando){
        case "new-contact":
+          diferencia = 3 - parametros.length;
           respuesta = parametros.length == 3;
           break;
        case "new-todo":
+         diferencia = 1 - parametros.length;
          respuesta = parametros.length == 1;
          break;
        case "new-meeting":
+         diferencia = 2 - parametros.length;
          respuesta = parametros.length == 2;
          break;
        case "list-meetings":
@@ -167,7 +172,11 @@ public class Validator
        default:
          respuesta = false;
     }
-    return respuesta;
+    if(respuesta && diferencia == 0){
+      return true
+    }else{
+      return false
+    }
   }
 }
 
@@ -178,3 +187,18 @@ public class AgendaApplication
     Repl.Listen();
   }
 }
+
+
+// contacto
+this.MissingParamsErrors(["Falta el nomber", "flata el telefono", "falta el email"])
+
+var objCoctact = new Contact{}
+System.Consnole.WiteLine(objConact.Errors)/// "Falta el nombre", "falta el telefono", "falta el email"
+
+var objCoctact = new Contact{Nombre="juan"}
+System.Consnole.WiteLine(objConact.Errors)/// "falta el telefono", "falta el email"
+
+System.Consnole.WiteLine(objConact.Errors)/// "falta el email"
+
+var objCoctact = new Contact{Nombre="juan", Telefono="3190", Email="ntoheu@oeu.com"}
+System.Consnole.WiteLine(objConact.Errors)///
